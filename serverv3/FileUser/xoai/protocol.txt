@@ -1,9 +1,0 @@
-﻿Client: DOWNLOAD
-Server: FILE NAME
-Client: game.txt
-Server: FILE NOT EXISTS
-Client: hoten.txt
-Server: hoten.txt size 
-Client: QUIT 
-Server: 500 bye
-
