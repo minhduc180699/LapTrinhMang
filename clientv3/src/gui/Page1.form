@@ -41,10 +41,8 @@
                           <Component id="usernamedn" pref="161" max="32767" attributes="0"/>
                           <Component id="passworddn" alignment="0" pref="161" max="32767" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="loginbutton" alignment="0" pref="157" max="32767" attributes="0"/>
-                              <Component id="messagelogin" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="loginbutton" alignment="0" pref="161" max="32767" attributes="0"/>
+                          <Component id="messagelogin" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
@@ -119,14 +117,8 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="usernamedn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="root"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="passworddn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="1111"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passworddnActionPerformed"/>
       </Events>
@@ -134,9 +126,6 @@
     <Component class="javax.swing.JTextField" name="usernamedk">
     </Component>
     <Component class="javax.swing.JTextField" name="passworddk">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="1111"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passworddkActionPerformed"/>
       </Events>

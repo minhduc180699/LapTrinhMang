@@ -192,7 +192,7 @@ public class Guitin extends javax.swing.JPanel {
                 String noidung = this.messagecontent.getText();
                 String nguoinhan = this.receiver.getText();
                 String nguoigui = G.tennguoidung;
-                if(!nguoinhan.equals("")){
+                if(!nguoinhan.equals("")&&!noidung.equals("")){
                     boolean guitin = G.iControl.guitin(new Tinnhan(nguoigui, nguoinhan, noidung,"text"));
                     if(guitin==true){
                         this.sendlabel.setText("Da gui");
@@ -204,7 +204,7 @@ public class Guitin extends javax.swing.JPanel {
                     }
                 }
                 else{
-                    sendlabel.setText("Chua co nguoi nhan");
+                    sendlabel.setText("Kiem tra nguoi nhan noi dung");
                 }
             } catch (RemoteException ex) {
             Logger.getLogger(Guitin.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,6 +218,7 @@ public class Guitin extends javax.swing.JPanel {
         if(x==javax.swing.JFileChooser.APPROVE_OPTION){
             G.file = fileChooser.getSelectedFile();
             this.filenameLabel.setText(G.file.getName());
+            G.chonfile=true;
         }
         //fileChooser.setBounds(100, 100, 500, 418);
         //fileChooser.setVisible(true);
@@ -227,7 +228,7 @@ public class Guitin extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             String nguoinhan=this.receiver.getText();
-            if(!nguoinhan.equals("")){
+            if(!nguoinhan.equals("")&&G.chonfile==true){
                 boolean guitenfile = G.iControl.guitin(new Tinnhan(G.tennguoidung, nguoinhan, G.file.getName()+","+G.file.length()+"KB","file"));
                 FileData fileData = new FileData(G.tennguoidung, nguoinhan,G.file.getName(),G.file.length());
                 fileData.data = new byte[(int) G.file.length()];
@@ -239,6 +240,7 @@ public class Guitin extends javax.swing.JPanel {
                 boolean guifile = G.iControl.guifile(fileData);
                 if(guitenfile==true&&guifile==true){
                     this.sendfilelabel.setText("Da gui");
+                    G.chonfile=false;
                     Chucnang.HienthiDsTindagui();
                 }
                 else{
@@ -246,7 +248,7 @@ public class Guitin extends javax.swing.JPanel {
                 }
             }
             else{
-                sendfilelabel.setText("Chua co nguoi nhan");
+                sendfilelabel.setText("That bai, moi kiem tra lai");
             }
         } catch (RemoteException ex) {
             Logger.getLogger(Guitin.class.getName()).log(Level.SEVERE, null, ex);

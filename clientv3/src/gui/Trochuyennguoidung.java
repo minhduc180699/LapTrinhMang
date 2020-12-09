@@ -167,6 +167,7 @@ public class Trochuyennguoidung extends javax.swing.JPanel {
         if(x==javax.swing.JFileChooser.APPROVE_OPTION){
             G.file = fileChooser.getSelectedFile();
             Trochuyennguoidung.sendfile.setText(G.file.getName());
+            G.chonfile=true;
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -177,14 +178,14 @@ public class Trochuyennguoidung extends javax.swing.JPanel {
                 String noidung = Trochuyennguoidung.noidung.getText();
                 String nguoinhan = G.nguoinhan;
                 String nguoigui = G.tennguoidung;
-                if(!nguoinhan.equals("")){
+                if(!nguoinhan.equals("")&&!noidung.equals("")){
                     boolean guitin = G.iControl.guitin(new Tinnhan(nguoigui, nguoinhan, noidung,"text"));
                     if(guitin==true){
                          Trochuyennguoidung.noidung.setText("");
                     }
                 }
                 else{
-                    sendlabel.setText("Chua co nguoi nhan");
+                    sendlabel.setText("kiem tra nguoi nhan,noi dung");
                 }
             } catch (RemoteException ex) {
             Logger.getLogger(Guitin.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,7 +197,7 @@ public class Trochuyennguoidung extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             String nguoinhan=G.nguoinhan;
-            if(!nguoinhan.equals("")){
+            if(!nguoinhan.equals("") && G.chonfile==true){
                 boolean guitenfile = G.iControl.guitin(new Tinnhan(G.tennguoidung, nguoinhan, G.file.getName()+","+G.file.length()+"KB","file"));
                 FileData fileData = new FileData(G.tennguoidung, nguoinhan,G.file.getName(),G.file.length());
                 fileData.data = new byte[(int) G.file.length()];
@@ -209,10 +210,11 @@ public class Trochuyennguoidung extends javax.swing.JPanel {
                 boolean guifile = G.iControl.guifile(fileData);
                 if(guitenfile==true&&guifile==true){
                     Trochuyennguoidung.sendfile.setText("Da gui");
+                    G.chonfile=false;
                 }
             }
             else{
-                sendfilelabel.setText("Chua co nguoi nhan");
+                Trochuyennguoidung.sendfile.setText("Kiem tra lai");
             }
         } catch (RemoteException ex) {
             Logger.getLogger(Guitin.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,8 +230,7 @@ public class Trochuyennguoidung extends javax.swing.JPanel {
     private void dstinnhannguoidungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dstinnhannguoidungMouseClicked
         // TODO add your handling code here:
         try {
-                if(G.dstindagui!=null){
-                    String value = Trochuyennguoidung.dstinnhannguoidung.getSelectedValue();
+                String value = Trochuyennguoidung.dstinnhannguoidung.getSelectedValue();
                 if(value!=null){ 
                     String[] data=value.split("\\|\\|");
                     String[] fileinfo = data[2].split(",");
@@ -244,7 +245,6 @@ public class Trochuyennguoidung extends javax.swing.JPanel {
                         fileOutputStream.close();
                         }
                     }
-                }
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);

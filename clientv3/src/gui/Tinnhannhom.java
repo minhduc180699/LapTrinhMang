@@ -151,13 +151,17 @@ public class Tinnhannhom extends javax.swing.JPanel {
 
     private void guitinnhomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guitinnhomActionPerformed
         try {
-            // TODO add your handling code here:
             String noidung=this.noidungtinnhom.getText();
-            Tinnhan tinnhan = new Tinnhan(G.tennguoidung,G.nhomdachon,noidung,"text");
-            boolean guitinnhom = G.iControl.guitinnhom(tinnhan);
-            if(guitinnhom==false){
-                
-                Tinnhannhom.guitinnhomms.setText("Gui tin that bai");
+            if(!noidung.equals("")){
+                Tinnhan tinnhan = new Tinnhan(G.tennguoidung,G.nhomdachon,noidung,"text");
+                boolean guitinnhom = G.iControl.guitinnhom(tinnhan);
+                if(guitinnhom==false){
+
+                    Tinnhannhom.guitinnhomms.setText("Gui tin that bai");
+                }else this.noidungtinnhom.setText("");
+            }
+            else{
+                Tinnhannhom.guifilenhomms.setText("Nhap noi dung");
             }
         } catch (RemoteException ex) {
             Logger.getLogger(Tinnhannhom.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,6 +175,7 @@ public class Tinnhannhom extends javax.swing.JPanel {
         if(x==javax.swing.JFileChooser.APPROVE_OPTION){
             G.file = fileChooser.getSelectedFile();
             Tinnhannhom.tenfilenhomlabel.setText(G.file.getName());
+            G.chonfile=true;
         }
     }//GEN-LAST:event_chonfilenhomActionPerformed
 
@@ -179,7 +184,8 @@ public class Tinnhannhom extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
                 String nguoinhan=G.nhomdachon;
-                boolean guitenfile = G.iControl.guitinnhom(new Tinnhan(G.tennguoidung, nguoinhan, G.file.getName()+","+G.file.length()+"KB","file"));
+                if(G.chonfile==true){
+                    boolean guitenfile = G.iControl.guitinnhom(new Tinnhan(G.tennguoidung, nguoinhan, G.file.getName()+","+G.file.length()+"KB","file"));
                 FileData fileData = new FileData(G.tennguoidung,nguoinhan,G.file.getName(),G.file.length());
                 fileData.data = new byte[(int) G.file.length()];
                 FileInputStream fileInputStream=new FileInputStream(G.file);
@@ -192,7 +198,11 @@ public class Tinnhannhom extends javax.swing.JPanel {
                 if(guitenfile==true&&guifilenhom==true){
                     System.out.println("Thanh cong");
                     Tinnhannhom.guifilenhomms.setText("da gui");
-//                    Chucnang.HienthiDsTinnhannhom();
+                    G.chonfile=false;
+                }
+                }
+                else{
+                    Tinnhannhom.guifilenhomms.setText("Chua chon file");
                 }
         } catch (RemoteException ex) {
             Logger.getLogger(Tinnhannhom.class.getName()).log(Level.SEVERE, null, ex);

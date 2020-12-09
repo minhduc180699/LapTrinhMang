@@ -47,5 +47,6 @@ public class G {
     public static boolean luongnhomchuathamgia;
     public static boolean luongnguoidungonline;
     public static boolean luongvoicechat;
+    public static boolean chonfile=false;
     //public static javax.swing.JFrame startFrame;
 }

@@ -73,7 +73,7 @@ public class Chucnang {
                     G.luongtrochuyennguoidung=true;
                     while(G.luongtrochuyennguoidung){
                         Chucnang.HienthiDsTinguivanhan();
-                        Thread.sleep(1000);
+                        Thread.sleep(1300);
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,7 +89,7 @@ public class Chucnang {
                     G.luongtinnhannhom=true;
                     while(G.luongtinnhannhom){
                         Chucnang.HienthiDsTinnhannhom();
-                        Thread.sleep(1000);
+                        Thread.sleep(1300);
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,7 +105,7 @@ public class Chucnang {
                     G.luongnhomchuathamgia=true;
                     while(G.luongnhomchuathamgia){
                         Chucnang.HienthiDsNhomchuathamgia();
-                        Thread.sleep(1000);
+                        Thread.sleep(1300);
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
@@ -265,50 +265,54 @@ public class Chucnang {
     }
     public static void TatVoicechat(){
         try {
-            // TODO add your handling code here:
-            boolean b = G.iControl.tatvoicechat(G.tennguoidung, G.nguoinhan);
-            G.voiceOn=false;
-            boolean voicems = G.iControl.guitin(new Tinnhan(G.tennguoidung, G.nguoinhan, "Turn off VOICE", "voice"));
-            G.thuamThread.stop();
-            G.phatamThread.stop();
-            System.out.println("Tat Voice chat");
+            if(G.voiceOn==true){
+                // TODO add your handling code here:
+                boolean b = G.iControl.tatvoicechat(G.tennguoidung, G.nguoinhan);
+                G.voiceOn=false;
+                boolean voicems = G.iControl.guitin(new Tinnhan(G.tennguoidung, G.nguoinhan, "Turn off VOICE", "voice"));
+                G.thuamThread.stop();
+                G.phatamThread.stop();
+                System.out.println("Tat Voice chat");
+            }
             
         } catch (RemoteException ex) {
             Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public static void BatVoiceChat(){
-        G.voiceChat = new VoiceChat();
-        G.thuamThread  = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    G.voiceChat.ThuAm();
-                } catch (LineUnavailableException ex) {
-                    Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
+        if(G.voiceOn==false){
+            G.voiceChat = new VoiceChat();
+            G.thuamThread  = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        G.voiceChat.ThuAm();
+                    } catch (LineUnavailableException ex) {
+                        Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        });
-        G.thuamThread.start();
-        G.phatamThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                G.voiceChat.PhatAm();
-            }
-        });
-        G.phatamThread.start();
+            });
+            G.thuamThread.start();
+            G.phatamThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    G.voiceChat.PhatAm();
+                }
+            });
+            G.phatamThread.start();
         
-        try {
-            G.voiceOn=true;
-            boolean voicems = G.iControl.guitin(new Tinnhan(G.tennguoidung, G.nguoinhan, "Please turn on VOICE", "voice"));
-            long t1 = System.currentTimeMillis();
-            long t2 = t1+5000;
-            while(System.currentTimeMillis()<t2){}
-            boolean b = G.iControl.batvoicechat(G.tennguoidung, G.nguoinhan);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                G.voiceOn=true;
+                boolean voicems = G.iControl.guitin(new Tinnhan(G.tennguoidung, G.nguoinhan, "Please turn on VOICE", "voice"));
+                long t1 = System.currentTimeMillis();
+                long t2 = t1+5000;
+                while(System.currentTimeMillis()<t2){}
+                boolean b = G.iControl.batvoicechat(G.tennguoidung, G.nguoinhan);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
