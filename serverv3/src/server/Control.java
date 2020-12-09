@@ -65,7 +65,6 @@ public class Control extends UnicastRemoteObject implements IControl{
                 System.out.println("Dang ky thanh cong:"+ten);
                 G.usersonline.add(ten);
                 G.user.put(ten, Control.getClientHost());
-               // G.user.put(Control.getClientHost(),ten);
                 G.user_host.put(ten, Control.getClientHost());
                 return true;
             }
@@ -96,7 +95,6 @@ public class Control extends UnicastRemoteObject implements IControl{
             if(b&& n ==1){
                 String updateState = "UPDATE users SET state = 1 WHERE username ="+ "'"+ten+"'";
                 statement.executeUpdate(updateState);
-                System.out.println("ok login");
                 G.usersonline.add(ten);
                  G.user.put(ten, Control.getClientHost());
                  G.user_host.put(ten, Control.getClientHost());

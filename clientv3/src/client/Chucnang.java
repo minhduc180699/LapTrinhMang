@@ -45,6 +45,7 @@ public class Chucnang {
             }
             fileReader.close();
         } catch (IOException ex) {
+            System.out.println("Loi doc file .conf");
             Logger.getLogger(Chucnang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -217,7 +218,7 @@ public class Chucnang {
     public static synchronized void HienthiDsTindagui(){
         try {
                 G.dstindagui = G.iControl.laydstindagui(G.tennguoidung);
-                System.out.println(G.dstindagui.size());
+                //System.out.println(G.dstindagui.size());
                 DefaultListModel lmodel = new DefaultListModel();
                 int count=0;
                 for(count=0;count<G.dstindagui.size();count++){
@@ -270,6 +271,7 @@ public class Chucnang {
             boolean voicems = G.iControl.guitin(new Tinnhan(G.tennguoidung, G.nguoinhan, "Turn off VOICE", "voice"));
             G.thuamThread.stop();
             G.phatamThread.stop();
+            System.out.println("Tat Voice chat");
             
         } catch (RemoteException ex) {
             Logger.getLogger(Trochuyennguoidung.class.getName()).log(Level.SEVERE, null, ex);
@@ -301,7 +303,6 @@ public class Chucnang {
         try {
             G.voiceOn=true;
             boolean voicems = G.iControl.guitin(new Tinnhan(G.tennguoidung, G.nguoinhan, "Please turn on VOICE", "voice"));
-            System.out.println("voicems:"+voicems);
             long t1 = System.currentTimeMillis();
             long t2 = t1+5000;
             while(System.currentTimeMillis()<t2){}

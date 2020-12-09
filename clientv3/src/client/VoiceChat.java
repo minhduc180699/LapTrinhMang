@@ -62,7 +62,7 @@ public class VoiceChat {
         dataLine = AudioSystem.getTargetDataLine(format);
         dataLine.open(format);
         dataLine.start();
-        System.out.println("san sang gui am thanh");
+        System.out.println("Gui am thanh OK");
         byte[] data = new byte[4096];
         int count=0;
         while((count = dataLine.read(data,0,data.length))>0){
@@ -80,7 +80,7 @@ public class VoiceChat {
             audioLine.open(format);
             audioLine.start();
             int BUFFER_SIZE = 4096;
-            System.out.println("San sang phat am thanh");
+            System.out.println("Phat am thanh OK");
             byte[] data = new byte[BUFFER_SIZE];
             while (true) {
                 packetnhan= new DatagramPacket(data, data.length);
